@@ -226,7 +226,6 @@ namespace QuantumStrut
         public override string GetInfo()
         {
             return "Max Struts: " + MaxStruts + "\nRequires:\n- ElectricCharge (" + PowerConsumption + "/s.)\n\n Energy cost is per-strut.";
-            return base.GetInfo();
         }
 
         public override void OnStart(PartModule.StartState state)
@@ -301,7 +300,6 @@ namespace QuantumStrut
             return str;
         }
 
-        bool kerbalPrinted = false;
         public override void OnUpdate()
         {
             bool eva = isValid(Util.Kerbal);

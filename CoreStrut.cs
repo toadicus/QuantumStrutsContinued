@@ -9,218 +9,225 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 //using System.Threading.Tasks;
 using UnityEngine;
 
 namespace QuantumStrut
 {
-    class CoreStrut
-    {
-        public bool isDestroyed = false;
+	class CoreStrut
+	{
+		public bool isDestroyed = false;
+		Material _material = null;
 
-        Material _material = null;
-        public Material Material
-        {
-            set
-            {
-                _material = value;
-                if (Material != null)
-                    lr.material = Material;
-            }
-            get
-            {
-                return _material;
-            }
-        }
+		public Material Material
+		{
+			set
+			{
+				_material = value;
+				if (Material != null)
+					lr.material = Material;
+			}
+			get
+			{
+				return _material;
+			}
+		}
 
-        Color _startColor = Color.white;
-        public Color StartColor
-        {
-            set
-            {
-                _startColor = value;
-                if (StartColor != null && EndColor != null)
-                    lr.SetColors(StartColor, EndColor);
-            }
-            get
-            {
-                return _startColor;
-            }
-        }
+		Color _startColor = Color.white;
 
-        Color _endColor = Color.white;
-        public Color EndColor
-        {
-            set
-            {
-                _endColor = value;
-                if (StartColor != null && EndColor != null)
-                    lr.SetColors(StartColor, EndColor);
-            }
-            get
-            {
-                return _endColor;
-            }
-        }
+		public Color StartColor
+		{
+			set
+			{
+				_startColor = value;
+				lr.SetColors(StartColor, EndColor);
+			}
+			get
+			{
+				return _startColor;
+			}
+		}
 
-        float _startSize = 0;
-        public float StartSize
-        {
-            set
-            {
-                _startSize = value;
-                lr.SetWidth(StartSize, EndSize);
-            }
-            get
-            {
-                return _startSize;
-            }
-        }
+		Color _endColor = Color.white;
 
-        float _endSize = 0;
-        public float EndSize
-        {
-            set
-            {
-                _endSize = value;
-                lr.SetWidth(StartSize, EndSize);
-            }
-            get
-            {
-                return _endSize;
-            }
-        }
+		public Color EndColor
+		{
+			set
+			{
+				_endColor = value;
+				lr.SetColors(StartColor, EndColor);
+			}
+			get
+			{
+				return _endColor;
+			}
+		}
 
-        ConfigurableJoint joint;
+		float _startSize = 0;
 
-        public bool Active = true;
-        public bool Selected = false;
-        public Part parent = null;
-        public Vector3 parentOffset = Vector3.zero;
+		public float StartSize
+		{
+			set
+			{
+				_startSize = value;
+				lr.SetWidth(StartSize, EndSize);
+			}
+			get
+			{
+				return _startSize;
+			}
+		}
 
-        public Part target = null;
-        public Vector3 targetOffset = Vector3.zero;
+		float _endSize = 0;
 
-        GameObject LineObj;
-        LineRenderer lr = null;
+		public float EndSize
+		{
+			set
+			{
+				_endSize = value;
+				lr.SetWidth(StartSize, EndSize);
+			}
+			get
+			{
+				return _endSize;
+			}
+		}
 
-        public void print(object body, params object[] args)
-        {
-            string final = body.ToString();
-            for (int I = 0; I < args.Length; I++)
-            {
-                final = final.Replace("{" + I + "}", args[I].ToString());
-            }
-            MonoBehaviour.print("[AutoStrut] " + final);
-        }
+		ConfigurableJoint joint;
+		public bool Active = true;
+		public bool Selected = false;
+		public Part parent = null;
+		public Vector3 parentOffset = Vector3.zero;
+		public Part target = null;
+		public Vector3 targetOffset = Vector3.zero;
+		GameObject LineObj;
+		LineRenderer lr = null;
 
-        void DrawLine(Vector3 origin, Vector3 end)
-        {
-            if (Util.isValid(lr))
-            {
-                lr.SetPosition(0, origin);
-                lr.SetPosition(1, end);
-            }
-        }
+		public void print(object body, params object[] args)
+		{
+			string final = body.ToString();
+			for (int I = 0; I < args.Length; I++)
+			{
+				final = final.Replace("{" + I + "}", args[I].ToString());
+			}
+			MonoBehaviour.print("[AutoStrut] " + final);
+		}
 
-        void createJoint()
-        {
-            if (!Util.isValid(joint))
-            {
-                joint = parent.gameObject.AddComponent<ConfigurableJoint>();
-                joint.connectedBody = target.rigidbody;
+		void DrawLine(Vector3 origin, Vector3 end)
+		{
+			if (Util.isValid(lr))
+			{
+				lr.SetPosition(0, origin);
+				lr.SetPosition(1, end);
+			}
+		}
 
-                joint.anchor = new Vector3(0, 0, Vector3.Distance(parent.transform.TransformPoint(parentOffset), target.transform.TransformPoint(targetOffset)) / 2);
-                joint.axis = new Vector3(0, 0, 1);
-                joint.xMotion = ConfigurableJointMotion.Locked;
-                joint.yMotion = ConfigurableJointMotion.Locked;
-                joint.zMotion = ConfigurableJointMotion.Locked;
-                joint.angularXMotion = ConfigurableJointMotion.Locked;
-                joint.angularYMotion = ConfigurableJointMotion.Locked;
-                joint.angularZMotion = ConfigurableJointMotion.Locked;
-            }
-        }
+		void createJoint()
+		{
+			if (!Util.isValid(joint))
+			{
+				joint = parent.gameObject.AddComponent<ConfigurableJoint>();
+				joint.connectedBody = target.rigidbody;
 
-        void deleteJoint()
-        {
-            if (Util.isValid(joint))
-                GameObject.DestroyImmediate(joint);
-        }
+				joint.anchor = new Vector3(
+					0,
+					0,
+					Vector3.Distance(
+						parent.transform.TransformPoint(parentOffset),
+						target.transform.TransformPoint(targetOffset)
+					) / 2
+				);
+				joint.axis = new Vector3(0, 0, 1);
+				joint.xMotion = ConfigurableJointMotion.Locked;
+				joint.yMotion = ConfigurableJointMotion.Locked;
+				joint.zMotion = ConfigurableJointMotion.Locked;
+				joint.angularXMotion = ConfigurableJointMotion.Locked;
+				joint.angularYMotion = ConfigurableJointMotion.Locked;
+				joint.angularZMotion = ConfigurableJointMotion.Locked;
+			}
+		}
 
-        public CoreStrut(Part parent, Vector3 parentOffset, Part target, Vector3 targetOffset)
-        {
-            this.parent = parent;
-            this.parentOffset = parentOffset;
-            this.target = target;
-            this.targetOffset = targetOffset;
+		void deleteJoint()
+		{
+			if (Util.isValid(joint))
+				GameObject.DestroyImmediate(joint);
+		}
 
-            createJoint();
+		public CoreStrut(Part parent, Vector3 parentOffset, Part target, Vector3 targetOffset)
+		{
+			this.parent = parent;
+			this.parentOffset = parentOffset;
+			this.target = target;
+			this.targetOffset = targetOffset;
 
-            LineObj = new GameObject();
-            LineObj.name = "quantumstrut";
+			createJoint();
 
-            lr = LineObj.AddComponent<LineRenderer>();
-            lr.useWorldSpace = true;
+			LineObj = new GameObject();
+			LineObj.name = "quantumstrut";
 
-            Material = QuantumStrut.LaserMaterial;
-            StartColor = Color.white;
-            EndColor = Color.white;
-            StartSize = 0.03f;
-            EndSize = 0.0075f;
+			lr = LineObj.AddComponent<LineRenderer>();
+			lr.useWorldSpace = true;
 
-            lr.SetVertexCount(2);
-            lr.SetPosition(0, Vector3.zero);
-            lr.SetPosition(1, Vector3.zero);
-        }
+			Material = QuantumStrut.LaserMaterial;
+			StartColor = Color.white;
+			EndColor = Color.white;
+			StartSize = 0.03f;
+			EndSize = 0.0075f;
 
-        public void Update()
-        {
-            if (Util.isValid(parent) && Util.isValid(target) && Util.isValid(parent.vessel) && parent.vessel.parts.Contains(target))
-            {
-                if (Active)
-                {
-                    createJoint();
-                    Vector3 start = parent.transform.TransformPoint(parentOffset);
-                    Vector3 end = target.transform.TransformPoint(targetOffset);
-                    if (Selected)
-                        lr.SetColors(Color.blue, Color.blue);
-                    else
-                        lr.SetColors(StartColor, EndColor);
-                    DrawLine(start, end);
-                }
-                else
-                {
-                    deleteJoint();
-                    DrawLine(Vector3.zero, Vector3.zero);
-                }
-            }
-            else
-            {
-                DrawLine(Vector3.zero, Vector3.zero);
-                Destroy();
-            }
-        }
+			lr.SetVertexCount(2);
+			lr.SetPosition(0, Vector3.zero);
+			lr.SetPosition(1, Vector3.zero);
+		}
 
-        public void Destroy()
-        {
-            DrawLine(Vector3.zero, Vector3.zero);
-            if (Util.isValid(joint))
-                GameObject.DestroyImmediate(joint);
+		public void Update()
+		{
+			if (Util.isValid(parent) && Util.isValid(target) && Util.isValid(parent.vessel) && parent.vessel.parts.Contains(target))
+			{
+				if (Active)
+				{
+					createJoint();
+					Vector3 start = parent.transform.TransformPoint(parentOffset);
+					Vector3 end = target.transform.TransformPoint(targetOffset);
+					if (Selected)
+						lr.SetColors(Color.blue, Color.blue);
+					else
+						lr.SetColors(StartColor, EndColor);
+					DrawLine(start, end);
+				}
+				else
+				{
+					deleteJoint();
+					DrawLine(Vector3.zero, Vector3.zero);
+				}
+			}
+			else
+			{
+				DrawLine(Vector3.zero, Vector3.zero);
+				Destroy();
+			}
+		}
 
-            if (Util.isValid(lr))
-                GameObject.DestroyImmediate(lr);
+		public void Destroy()
+		{
+			DrawLine(Vector3.zero, Vector3.zero);
+			if (Util.isValid(joint))
+				GameObject.DestroyImmediate(joint);
 
-            if (Util.isValid(LineObj))
-                GameObject.DestroyImmediate(LineObj);
+			if (Util.isValid(lr))
+				GameObject.DestroyImmediate(lr);
 
-            joint = null;
-            LineObj = null;
-            lr = null;
+			if (Util.isValid(LineObj))
+				GameObject.DestroyImmediate(LineObj);
 
-            parent = null;
-            target = null;
-            targetOffset = Vector3.zero;
-            isDestroyed = true;
-        }
-    }
+			joint = null;
+			LineObj = null;
+			lr = null;
+
+			parent = null;
+			target = null;
+			targetOffset = Vector3.zero;
+			isDestroyed = true;
+		}
+	}
 }
