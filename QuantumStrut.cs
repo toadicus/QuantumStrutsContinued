@@ -197,9 +197,9 @@ namespace QuantumStrut
 				if (strut != null && !strut.isDestroyed)
 				{
 					if (PowerConsumption == 0 || (Util.GetEnergy(part.vessel) > PowerConsumption * TimeWarp.fixedDeltaTime && part.RequestResource(
-						                   "ElectricCharge",
-						                   PowerConsumption * TimeWarp.fixedDeltaTime
-					                   ) > 0))
+						    "ElectricCharge",
+						    PowerConsumption * TimeWarp.fixedDeltaTime
+					    ) > 0))
 						strut.Update();
 					else
 						strut.Destroy();
