@@ -1,4 +1,11 @@
-﻿using System;
+﻿// QuantumStrutsContinued © 2014 toadicus
+//
+// This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. To view a
+// copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/
+//
+// Continued from QuantumStrut, © 2013 BoJaN.  Used with permission.
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
