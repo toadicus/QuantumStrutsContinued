@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AutoStrut")]
+[assembly: AssemblyTitle("QuantumStrutsContinued")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AutoStrut")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyProduct("QuantumStrutsContinued")]
+[assembly: AssemblyCopyright("Copyright © 2014 toadicus")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
