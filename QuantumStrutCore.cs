@@ -5,13 +5,12 @@
 //
 // Continued from QuantumStrut, © 2013 BoJaN.  Used with permission.
 
+using KSP;
+using KSP.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-using KSP.IO;
 
 namespace QuantumStrut
 {

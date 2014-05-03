@@ -5,10 +5,8 @@
 //
 // Continued from QuantumStrut, © 2013 BoJaN.  Used with permission.
 
+using KSP;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace QuantumStrut
@@ -59,33 +57,35 @@ namespace QuantumStrut
 		[KSPAction("Activate")]
 		public void ActivateStrut(KSPActionParam param)
 		{
-			IsEnabled = true;
-			CheckHit();
+			this.ActivateStrut();
 		}
 
 		[KSPAction("Deactivate")]
 		public void DeactivateStrut(KSPActionParam param)
 		{
-			IsEnabled = false;
-			CheckHit();
+			this.DeactivateStrut();
 		}
 
 		#endregion
 
 		#region Events
 
-		[KSPEvent(guiActive = true, guiName = "Activate", active = true)]
+		[KSPEvent(guiActive = true, guiName = "Activate", active = true, guiActiveEditor = true)]
 		public void ActivateStrut()
 		{
 			IsEnabled = true;
 			CheckHit();
+			this.Events["ActivateStrut"].guiActiveEditor = false;
+			this.Events["DeactivateStrut"].guiActiveEditor = true;
 		}
 
-		[KSPEvent(guiActive = true, guiName = "Deactivate", active = false)]
+		[KSPEvent(guiActive = true, guiName = "Deactivate", active = false, guiActiveEditor = false)]
 		public void DeactivateStrut()
 		{
 			IsEnabled = false;
 			CheckHit();
+			this.Events["ActivateStrut"].guiActiveEditor = true;
+			this.Events["DeactivateStrut"].guiActiveEditor = false;
 		}
 
 		#endregion
@@ -178,15 +178,10 @@ namespace QuantumStrut
 			base.OnStart(state);
 		}
 
-		public override void OnFixedUpdate()
+		public void Update()
 		{
-			base.OnFixedUpdate();
-		}
-
-		public override void OnUpdate()
-		{
-			Events["ActivateStrut"].active = !IsEnabled;
-			Events["DeactivateStrut"].active = IsEnabled;
+			Events["ActivateStrut"].guiActiveEditor = Events["ActivateStrut"].active = !IsEnabled;
+			Events["DeactivateStrut"].guiActiveEditor = Events["DeactivateStrut"].active = IsEnabled;
 
 			if (IsEnabled)
 			{
@@ -224,37 +219,68 @@ namespace QuantumStrut
 
 		void CheckHit()
 		{
+			if (HighLogic.LoadedSceneIsEditor)
+			{
+				Tools.PostDebugMessage(this, "Checking bailing out: in the editor!");
+				return;
+			}
+
 			if (!isEnabled)
 			{
+				Tools.PostDebugMessage(this, "Destroying strut.");
+
 				strut.Destroy();
 				strut = null;
 				return;
 			}
 
+			Tools.PostDebugMessage(this, "Checking for ray hit.");
+
+			Tools.PostDebugMessage(this, "Enabled, continuing.");
+
 			if (strut == null || strut.isDestroyed)
 			{
+				Tools.PostDebugMessage(this, "We have no strut, or the strut has been destroyed.");
+
 				Vector3 dir = getTransform().TransformDirection(Dir);
 				Vector3 start = getTransform().TransformPoint(Start);
 
+				Tools.PostDebugMessage(this, "Got transforms.  Checking for raycast hit.");
+
 				UnityEngine.RaycastHit info = new RaycastHit();
 				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, 10);
+
 				if (hit)
 				{
+					Tools.PostDebugMessage(this, "Found raycast hit.  Fetching target part.");
+
 					Part targetPart = Util.partFromRaycast(info);
 
-					if (targetPart && vessel.parts.Contains(targetPart) && Util.GetEnergy(part.vessel) > 5 * TimeWarp.fixedDeltaTime)
+					Tools.PostDebugMessage(this, "Found target part.");
+
+					if (
+						targetPart && vessel.parts.Contains(targetPart) &&
+						Util.GetEnergy(part.vessel) > 5 * TimeWarp.fixedDeltaTime
+					)
 					{
+						Tools.PostDebugMessage(this, "Target part is in our vessel and we have the energy to continue.");
+
 						strut = new Strut(
 							part,
 							targetPart,
 							targetPart.transform.InverseTransformPoint(info.point),
 							getTransform()
 						);
+
+						Tools.PostDebugMessage(this, "Built a new strut, setting material, colors, and sizes.");
+
 						strut.Material = material;
 						strut.StartColor = startColor;
 						strut.EndColor = endColor;
 						strut.StartSize = StartSize;
 						strut.EndSize = EndSize;
+
+						Tools.PostDebugMessage(this, "Strut all done!");
 					}
 				}
 			}
@@ -304,7 +330,7 @@ namespace QuantumStrut
 
 					UnityEngine.RaycastHit info = new RaycastHit();
 					bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, 10);
-					if (hit)
+					if (hit && IsEnabled)
 					{
 						if (Util.isValid(material))
 							lr.material = material;
