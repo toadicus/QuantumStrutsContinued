@@ -70,7 +70,7 @@ namespace QuantumStrut
 
 		#region Events
 
-		[KSPEvent(guiActive = true, guiName = "Activate", active = true, guiActiveEditor = true)]
+		[KSPEvent(guiActive = true, guiName = "Activate", active = true, guiActiveUnfocused = true, unfocusedRange = 2f)]
 		public void ActivateStrut()
 		{
 			IsEnabled = true;
@@ -79,7 +79,7 @@ namespace QuantumStrut
 			this.Events["DeactivateStrut"].guiActiveEditor = true;
 		}
 
-		[KSPEvent(guiActive = true, guiName = "Deactivate", active = false, guiActiveEditor = false)]
+		[KSPEvent(guiActive = true, guiName = "Deactivate", active = false, guiActiveUnfocused = true, unfocusedRange = 2f)]
 		public void DeactivateStrut()
 		{
 			IsEnabled = false;
