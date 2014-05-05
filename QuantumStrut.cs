@@ -7,6 +7,7 @@
 
 using KSP;
 using System;
+using ToadicusTools;
 using UnityEngine;
 
 namespace QuantumStrut
