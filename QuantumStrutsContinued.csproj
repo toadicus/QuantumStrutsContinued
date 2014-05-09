@@ -10,6 +10,7 @@
     <RootNamespace>QuantumStrutsContinued</RootNamespace>
     <AssemblyName>QuantumStrutsContinued</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseMSBuildEngine>False</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_win|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
