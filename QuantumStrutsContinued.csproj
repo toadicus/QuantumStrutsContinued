@@ -65,6 +65,7 @@
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -af ${TargetFile} /opt/games/KSP_linux/GameData/QuantumStrutsContinued/Plugins/" />
+        <Command type="AfterBuild" command="cp -raf ${ProjectDir}/Parts ${ProjectDir}/KASifyQSC.cfg /opt/games/KSP_linux/GameData/QuantumStrutsContinued/" />
       </CustomCommands>
     </CustomCommands>
     <ConsolePause>false</ConsolePause>
@@ -86,7 +87,7 @@
     <MonoDevelop>
       <Properties>
         <Policies>
-          <StandardHeader Text="${ProjectName} © ${Year} ${AuthorName}&#xA;&#xA;This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. To view a&#xA;copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/&#xA;&#xA;Continued from QuantumStrut, © 2013 BoJaN.  Used with permission." IncludeInNewFiles="True" />
+          <StandardHeader Text="${ProjectName}&#xD;&#xA;&#xD;&#xA;${FileName}&#xD;&#xA;&#xD;&#xA;Copyright © ${Year}, ${AuthorName}&#xD;&#xA;All rights reserved.&#xD;&#xA;&#xD;&#xA;Redistribution and use in source and binary forms, with or without modification,&#xD;&#xA;are permitted provided that the following conditions are met:&#xD;&#xA;&#xD;&#xA;1. Redistributions of source code must retain the above copyright notice,&#xD;&#xA;   this list of conditions and the following disclaimer.&#xD;&#xA;&#xD;&#xA;2. Redistributions in binary form must reproduce the above copyright notice,&#xD;&#xA;   this list of conditions and the following disclaimer in the documentation and/or other&#xD;&#xA;   materials provided with the distribution.&#xD;&#xA;&#xD;&#xA;THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES,&#xD;&#xA;INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE&#xD;&#xA;DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,&#xD;&#xA;SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR&#xD;&#xA;SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,&#xD;&#xA;WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE&#xD;&#xA;OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE." IncludeInNewFiles="True" />
         </Policies>
       </Properties>
     </MonoDevelop>
