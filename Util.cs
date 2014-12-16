@@ -128,18 +128,6 @@ namespace QuantumStrut
 			return partFromGameObject(hit.collider.gameObject);
 		}
 
-		public static Part partFromId(Vessel vessel, long id)
-		{
-			Console.WriteLine("Vessel Parts: " + vessel.Parts.Count);
-			foreach (Part p in vessel.Parts)
-			{
-				MonoBehaviour.print(p.uid + " ?= " + id + ": " + (p.uid == id));
-				if (p.uid == id)
-					return p;
-			}
-			return null;
-		}
-
 		public static float GetEnergy(Vessel vessel)
 		{
 			double energy = 0;

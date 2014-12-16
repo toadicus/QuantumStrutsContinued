@@ -180,18 +180,6 @@ namespace QuantumStrut
 			return partFromGameObject(hit.collider.gameObject);
 		}
 
-		Part partFromId(long id)
-		{
-			Console.WriteLine("Vessel Parts: " + part.vessel.Parts.Count);
-			foreach (Part p in part.vessel.Parts)
-			{
-				print(p.uid + " ?= " + id + ": " + (p.uid == id));
-				if (p.uid == id)
-					return p;
-			}
-			return null;
-		}
-
 		bool isValid(UnityEngine.Object obj)
 		{
 			return (obj && obj != null);
