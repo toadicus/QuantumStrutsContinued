@@ -24,7 +24,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ..\..\..\Games\KSP_win\GameData\QuantumStrutsContinued\Plugins\" />
+        <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ${ProjectDir}\GameData\QuantumStrutsContinued\Plugins\" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -37,7 +37,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ..\..\..\Games\KSP_win\GameData\QuantumStrutsContinued\Plugins\" />
+        <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ${ProjectDir}\GameData\QuantumStrutsContinued\Plugins\" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
