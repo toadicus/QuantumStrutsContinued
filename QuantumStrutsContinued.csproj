@@ -65,7 +65,6 @@
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/" />
-        <Command type="AfterBuild" command="cp -raf ${ProjectDir}/Parts ${ProjectDir}/KASifyQSC.cfg ${ProjectDir}/GameData/QuantumStrutsContinued/" />
       </CustomCommands>
     </CustomCommands>
     <ConsolePause>false</ConsolePause>
