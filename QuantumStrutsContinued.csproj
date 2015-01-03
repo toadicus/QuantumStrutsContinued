@@ -53,7 +53,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp -af ${TargetFile} /opt/games/KSP_linux/GameData/QuantumStrutsContinued/Plugins/" />
+        <Command type="AfterBuild" command="cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -64,8 +64,8 @@
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp -af ${TargetFile} /opt/games/KSP_linux/GameData/QuantumStrutsContinued/Plugins/" />
-        <Command type="AfterBuild" command="cp -raf ${ProjectDir}/Parts ${ProjectDir}/KASifyQSC.cfg /opt/games/KSP_linux/GameData/QuantumStrutsContinued/" />
+        <Command type="AfterBuild" command="cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/" />
+        <Command type="AfterBuild" command="cp -raf ${ProjectDir}/Parts ${ProjectDir}/KASifyQSC.cfg ${ProjectDir}/GameData/QuantumStrutsContinued/" />
       </CustomCommands>
     </CustomCommands>
     <ConsolePause>false</ConsolePause>
