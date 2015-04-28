@@ -72,9 +72,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="CoreStrut.cs" />
     <Compile Include="QuantumStrut.cs" />
-    <Compile Include="QuantumStrutCore.cs" />
     <Compile Include="Strut.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,7 +106,6 @@
   <ItemGroup>
     <None Include="GameData\QuantumStrutsContinued\KASifyQSC.cfg" />
     <None Include="GameData\QuantumStrutsContinued\Parts\QuantumStruts\quantumStrut\part.cfg" />
-    <None Include="GameData\QuantumStrutsContinued\Parts\QuantumStruts\quantumStrutCore\part.cfg" />
     <None Include="GameData\QuantumStrutsContinued\Parts\QuantumStruts\strutGun\part.cfg" />
   </ItemGroup>
 </Project>
