@@ -107,5 +107,6 @@
     <None Include="GameData\QuantumStrutsContinued\KASifyQSC.cfg" />
     <None Include="GameData\QuantumStrutsContinued\Parts\QuantumStruts\quantumStrut\part.cfg" />
     <None Include="GameData\QuantumStrutsContinued\Parts\QuantumStruts\strutGun\part.cfg" />
+    <None Include="GameData\QuantumStrutsContinued\LICENSE" />
   </ItemGroup>
 </Project>
