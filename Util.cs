@@ -96,8 +96,11 @@ namespace QuantumStrut
 				prefix += "    ";
 			}
 
-			foreach (PropertyDescriptor d in collection)
+			PropertyDescriptor d;
+			for (int i = 0; i < collection.Count; i++)
 			{
+				d = collection[i];
+
 				str += "\n" + prefix + d.Name + " = " + d.GetValue(obj);
 			}
 			return str;
@@ -131,10 +134,16 @@ namespace QuantumStrut
 		public static float GetEnergy(Vessel vessel)
 		{
 			double energy = 0;
-			foreach (Part p in vessel.parts)
+			Part p;
+			for (int pIdx = 0; pIdx < vessel.parts.Count; pIdx++)
 			{
-				foreach (PartResource r in p.Resources)
+				p = vessel.parts[pIdx];
+
+				PartResource r;
+				for (int rIdx = 0; rIdx < p.Resources.Count; rIdx++)
 				{
+					r = p.Resources[rIdx];
+
 					if (r.resourceName == "ElectricCharge")
 						energy += r.amount;
 				}
