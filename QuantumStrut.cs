@@ -244,49 +244,49 @@ namespace QuantumStrut
 		{
 			if (HighLogic.LoadedSceneIsEditor)
 			{
-				Tools.PostDebugMessage(this, "Checking bailing out: in the editor!");
+				Logging.PostDebugMessage(this, "Checking bailing out: in the editor!");
 				return;
 			}
 
 			if (!isEnabled)
 			{
-				Tools.PostDebugMessage(this, "Destroying strut.");
+				Logging.PostDebugMessage(this, "Destroying strut.");
 
 				strut.Destroy();
 				strut = null;
 				return;
 			}
 
-			Tools.PostDebugMessage(this, "Checking for ray hit.");
+			Logging.PostDebugMessage(this, "Checking for ray hit.");
 
-			Tools.PostDebugMessage(this, "Enabled, continuing.");
+			Logging.PostDebugMessage(this, "Enabled, continuing.");
 
 			if (strut == null || strut.isDestroyed)
 			{
-				Tools.PostDebugMessage(this, "We have no strut, or the strut has been destroyed.");
+				Logging.PostDebugMessage(this, "We have no strut, or the strut has been destroyed.");
 
 				Vector3 dir = getTransform().TransformDirection(Dir);
 				Vector3 start = getTransform().TransformPoint(Start);
 
-				Tools.PostDebugMessage(this, "Got transforms.  Checking for raycast hit.");
+				Logging.PostDebugMessage(this, "Got transforms.  Checking for raycast hit.");
 
 				UnityEngine.RaycastHit info = new RaycastHit();
 				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, 10);
 
 				if (hit)
 				{
-					Tools.PostDebugMessage(this, "Found raycast hit.  Fetching target part.");
+					Logging.PostDebugMessage(this, "Found raycast hit.  Fetching target part.");
 
 					Part targetPart = Util.partFromRaycast(info);
 
-					Tools.PostDebugMessage(this, "Found target part.");
+					Logging.PostDebugMessage(this, "Found target part.");
 
 					if (
 						targetPart && vessel.parts.Contains(targetPart) &&
 						Util.GetEnergy(part.vessel) > 5 * TimeWarp.fixedDeltaTime
 					)
 					{
-						Tools.PostDebugMessage(this, "Target part is in our vessel and we have the energy to continue.");
+						Logging.PostDebugMessage(this, "Target part is in our vessel and we have the energy to continue.");
 
 						strut = new Strut(
 							part,
@@ -295,7 +295,7 @@ namespace QuantumStrut
 							getTransform()
 						);
 
-						Tools.PostDebugMessage(this, "Built a new strut, setting material, colors, and sizes.");
+						Logging.PostDebugMessage(this, "Built a new strut, setting material, colors, and sizes.");
 
 						strut.Material = material;
 						strut.StartColor = startColor;
@@ -303,7 +303,7 @@ namespace QuantumStrut
 						strut.StartSize = StartSize;
 						strut.EndSize = EndSize;
 
-						Tools.PostDebugMessage(this, "Strut all done!");
+						Logging.PostDebugMessage(this, "Strut all done!");
 					}
 				}
 			}
