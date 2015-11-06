@@ -27,6 +27,8 @@
 // WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#define DEBUG
+
 using KSP;
 using System;
 using ToadicusTools;
@@ -176,6 +178,8 @@ namespace QuantumStrut
 				material = null;
 			}
 
+			base.stagingEnabled = false;
+
 			startColor = Vector3toColor(StartColor);
 			endColor = Vector3toColor(EndColor);
 
@@ -201,7 +205,12 @@ namespace QuantumStrut
 			base.OnStart(state);
 		}
 
-		public void Update()
+		public override bool IsStageable()
+		{
+			return false;
+		}
+
+		public void FixedUpdate()
 		{
 			Events["ActivateStrut"].guiActiveEditor = Events["ActivateStrut"].active = !IsEnabled;
 			Events["DeactivateStrut"].guiActiveEditor = Events["DeactivateStrut"].active = IsEnabled;
@@ -263,7 +272,7 @@ namespace QuantumStrut
 
 			if (strut == null || strut.isDestroyed)
 			{
-				Logging.PostDebugMessage(this, "We have no strut, or the strut has been destroyed.");
+				Logging.PostDebugMessage(this, "strut is {0}", strut == null ? "null" : strut.isDestroyed.ToString());
 
 				Vector3 dir = getTransform().TransformDirection(Dir);
 				Vector3 start = getTransform().TransformPoint(Start);
@@ -279,7 +288,11 @@ namespace QuantumStrut
 
 					Part targetPart = Util.partFromRaycast(info);
 
-					Logging.PostDebugMessage(this, "Found target part.");
+					Logging.PostDebugMessage(this,
+						"Found target part {0} on {1}.",
+						targetPart.partName,
+						targetPart.vessel == null ? "null vessel" : targetPart.vessel.vesselName
+					);
 
 					if (
 						targetPart && vessel.parts.Contains(targetPart) &&
