@@ -68,6 +68,9 @@ namespace QuantumStrut
 		[KSPField(isPersistant = false)]
 		public float EndSize = 0.0075f;
 
+		[KSPField(isPersistant = false)]
+		public float MaxStructLength = 10f;
+
 		#endregion
 
 		#region Actions
@@ -280,7 +283,7 @@ namespace QuantumStrut
 				Logging.PostDebugMessage(this, "Got transforms.  Checking for raycast hit.");
 
 				UnityEngine.RaycastHit info = new RaycastHit();
-				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, 10);
+				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, MaxStructLength);
 
 				if (hit)
 				{
