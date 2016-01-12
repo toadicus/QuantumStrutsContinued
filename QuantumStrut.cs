@@ -66,10 +66,14 @@ namespace QuantumStrut
 		[KSPField(isPersistant = false)]
 		public float StartSize = 0.03f;
 		[KSPField(isPersistant = false)]
-		public float EndSize = 0.0075f;
+		public float EndSize = 0.015f;
 
-		[KSPField(isPersistant = false)]
-		public float MaxStructLength = 10f;
+		[KSPField(
+			isPersistant = false, guiActiveEditor = true,
+			guiName = "Max. Strut Length", guiUnits = "m", guiFormat = "F0"
+		)]
+		[UI_FloatRange(minValue = 2f, maxValue = 50f, stepIncrement = 2f)]
+		public float MaxStrutLength = 10f;
 
 		#endregion
 
@@ -283,7 +287,7 @@ namespace QuantumStrut
 				Logging.PostDebugMessage(this, "Got transforms.  Checking for raycast hit.");
 
 				UnityEngine.RaycastHit info = new RaycastHit();
-				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, MaxStructLength);
+				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, MaxStrutLength);
 
 				if (hit)
 				{
@@ -368,7 +372,7 @@ namespace QuantumStrut
 					Vector3 start = getTransform().TransformPoint(Start);
 
 					UnityEngine.RaycastHit info = new RaycastHit();
-					bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, 10);
+					bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, MaxStrutLength);
 					if (hit && IsEnabled)
 					{
 						if (Util.isValid(material))
@@ -387,7 +391,7 @@ namespace QuantumStrut
 						lr.SetWidth(0.01f, 0.01f);
 
 						lr.SetPosition(0, start);
-						lr.SetPosition(1, start + (dir * 10));
+						lr.SetPosition(1, start + (dir * MaxStrutLength));
 					}
 				}
 			}
