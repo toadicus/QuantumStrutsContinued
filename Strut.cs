@@ -149,7 +149,7 @@ namespace QuantumStrut
 			if (parent.vessel.parts.Contains(target))
 			{
 				joint = parent.parent.gameObject.AddComponent<ConfigurableJoint>();
-				joint.connectedBody = target.rigidbody;
+				joint.connectedBody = target.Rigidbody;
 
 				joint.anchor = new Vector3(
 					0,
