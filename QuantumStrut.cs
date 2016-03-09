@@ -40,7 +40,6 @@ namespace QuantumStrut
 		Strut strut = null;
 		GameObject lineObj;
 		LineRenderer lr;
-		bool Editor = false;
 		int I = 0;
 
 		#region Fields
@@ -190,21 +189,19 @@ namespace QuantumStrut
 
 			if (!Util.isValid(LaserMaterial))
 				LaserMaterial = new Material(Shader.Find("Particles/Additive"));
-
-			if (state == StartState.Docked)
-				CheckHit();
-
-			if (state == StartState.Editor)
+			
+			switch (state)
 			{
-				Editor = true;
-				RenderingManager.AddToPostDrawQueue(0, DrawBuildOverlay);
-				InitLaser();
-			}
-			else
-			{
-				Editor = false;
-				RenderingManager.RemoveFromPostDrawQueue(0, DrawBuildOverlay);
-				DestroyLaser();
+				case StartState.Editor:
+					InitLaser();
+					break;
+				case StartState.Docked:
+					CheckHit();
+					DestroyLaser();
+					break;
+				default:
+					DestroyLaser();
+					break;
 			}
 
 			base.OnStart(state);
@@ -252,6 +249,23 @@ namespace QuantumStrut
 			}
 
 			base.OnUpdate();
+		}
+
+		public void OnGUI()
+		{
+			if (HighLogic.LoadedSceneIsEditor && Util.isValid(part))
+			{
+				this.DrawBuildOverlay();
+			}
+			else
+			{
+				DestroyLaser();
+			}
+		}
+
+		public void OnDestroy()
+		{
+			DestroyLaser();
 		}
 
 		void CheckHit()
@@ -343,7 +357,7 @@ namespace QuantumStrut
 				lr.SetVertexCount(2);
 				lr.SetPosition(0, Vector3.zero);
 				lr.SetPosition(1, Vector3.zero);
-				lr.castShadows = false;
+				lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 				lr.receiveShadows = true;
 			}
 		}
@@ -359,44 +373,33 @@ namespace QuantumStrut
 
 		public void DrawBuildOverlay()
 		{
-			if (Util.isValid(part))
+			if (Util.isValid(lr))
 			{
-				if (!Editor)
-					return;
+				Vector3 dir = getTransform().TransformDirection(Dir);
+				Vector3 start = getTransform().TransformPoint(Start);
 
-				if (Util.isValid(lr))
+				UnityEngine.RaycastHit info = new RaycastHit();
+				bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, MaxStrutLength);
+				if (hit && IsEnabled)
 				{
-					Vector3 dir = getTransform().TransformDirection(Dir);
-					Vector3 start = getTransform().TransformPoint(Start);
+					if (Util.isValid(material))
+						lr.material = material;
 
-					UnityEngine.RaycastHit info = new RaycastHit();
-					bool hit = Physics.Raycast(new UnityEngine.Ray(start + (dir * 0.05f), dir), out info, MaxStrutLength);
-					if (hit && IsEnabled)
-					{
-						if (Util.isValid(material))
-							lr.material = material;
+					lr.SetColors(startColor, endColor);
+					lr.SetWidth(StartSize, EndSize);
 
-						lr.SetColors(startColor, endColor);
-						lr.SetWidth(StartSize, EndSize);
-
-						lr.SetPosition(0, start);
-						lr.SetPosition(1, info.point);
-					}
-					else
-					{
-						lr.material = LaserMaterial;
-						lr.SetColors(Color.red, Color.red);
-						lr.SetWidth(0.01f, 0.01f);
-
-						lr.SetPosition(0, start);
-						lr.SetPosition(1, start + (dir * MaxStrutLength));
-					}
+					lr.SetPosition(0, start);
+					lr.SetPosition(1, info.point);
 				}
-			}
-			else
-			{
-				DestroyLaser();
-				RenderingManager.RemoveFromPostDrawQueue(0, DrawBuildOverlay);
+				else
+				{
+					lr.material = LaserMaterial;
+					lr.SetColors(Color.red, Color.red);
+					lr.SetWidth(0.01f, 0.01f);
+
+					lr.SetPosition(0, start);
+					lr.SetPosition(1, start + (dir * MaxStrutLength));
+				}
 			}
 		}
 	}
