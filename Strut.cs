@@ -171,7 +171,7 @@ namespace QuantumStrut
 				LineObj.name = "quantumstrut";
 
 				lr = LineObj.AddComponent<LineRenderer>();
-				lr.useWorldSpace = true;
+				lr.useWorldSpace = false;
 
 				Material = QuantumStrut.LaserMaterial;
 				StartColor = Color.white;
