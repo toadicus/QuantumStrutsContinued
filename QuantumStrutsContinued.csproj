@@ -24,7 +24,10 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ${ProjectDir}\GameData\QuantumStrutsContinued\Plugins\" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>xcopy /Y ${TargetFile} ${ProjectDir}\GameData\QuantumStrutsContinued\Plugins\</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -37,7 +40,10 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ${ProjectDir}\GameData\QuantumStrutsContinued\Plugins\" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>xcopy /Y ${TargetFile} ${ProjectDir}\GameData\QuantumStrutsContinued\Plugins\</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -53,7 +59,10 @@
     <PlatformTarget>x86</PlatformTarget>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -64,7 +73,10 @@
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/" />
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp -af ${TargetFile} ${ProjectDir}/GameData/QuantumStrutsContinued/Plugins/</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
     <ConsolePause>false</ConsolePause>
@@ -134,9 +146,6 @@
     <Reference Include="UnityEngine">
       <HintPath>..\_KSPAssemblies\UnityEngine.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="KSPUtil">
-      <HintPath>..\_KSPAssemblies\KSPUtil.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\_KSPAssemblies\UnityEngine.UI.dll</HintPath>
