@@ -1,7 +1,7 @@
 ﻿rem
 
 
-set H=R:\KSP_1.1.4_dev
+set H=R:\KSP_1.2.2_dev
 echo %H%
 
 copy /Y "bin\Debug\QuantumStrutsContinued.dll" "GameData\QuantumStrutsContinued\Plugins"

@@ -4,7 +4,7 @@
 set H=R:\KSP_1.1.4_dev
 echo %H%
 
-copy /Y "bin\Debug\QuantumStrutsContinued.dll" "GameData\QuantumStrutsContinued\Plugins"
+copy /Y "bin\Release\QuantumStrutsContinued.dll" "GameData\QuantumStrutsContinued\Plugins"
 copy /Y QuantumStrutsContinued.version GameData\QuantumStrutsContinued
 
 cd GameData
@@ -41,5 +41,3 @@ set /p VERSION= "Enter version: "
 set FILE="%RELEASEDIR%\QuantumStrutsContinued-%VERSION%.zip"
 IF EXIST %FILE% del /F %FILE%
 %ZIP% a -tzip %FILE% GameData
-
-pause
