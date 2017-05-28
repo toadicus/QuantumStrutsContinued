@@ -5,6 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantumStrutsContinued", "QuantumStrutsContinued.csproj", "{D6EC2150-27A5-4CB2-ACF9-C53FF7754A77}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{8F137933-83CE-49E5-9F7A-2154426EB740}"
+	ProjectSection(SolutionItems) = preProject
+		buildRelease.bat = buildRelease.bat
+		deploy.bat = deploy.bat
+		QuantumStrutsContinued.version = QuantumStrutsContinued.version
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_linux|Any CPU = Debug_linux|Any CPU
