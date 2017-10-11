@@ -1,13 +1,20 @@
-﻿rem
+﻿
+@echo off
 
+rem H is the destination game folder
+rem GAMEDIR is the name of the mod folder (usually the mod name)
+rem GAMEDATA is the name of the local GameData
+rem VERSIONFILE is the name of the version file, usually the same as GAMEDATA,
+rem    but not always
 
-set H=R:\KSP_1.3.0_dev
-echo %H%
+set H=R:\KSP_1.3.1_dev
+set GAMEDIR=QuantumStrutsContinued
+set GAMEDATA="GameData\"
+set VERSIONFILE=%GAMEDIR%.version
 
-copy /Y "bin\Debug\QuantumStrutsContinued.dll" "GameData\QuantumStrutsContinued\Plugins"
-copy /Y QuantumStrutsContinued.version GameData\QuantumStrutsContinued
+copy /Y "%1%2" "%GAMEDATA%\%GAMEDIR%\Plugins"
+copy /Y %VERSIONFILE% %GAMEDATA%\%GAMEDIR%
 
-cd GameData
-mkdir "%H%\GameData\QuantumStrutsContinued"
-xcopy /y /s QuantumStrutsContinued "%H%\GameData\QuantumStrutsContinued"
+xcopy /y /s /I %GAMEDATA%\%GAMEDIR% "%H%\GameData\%GAMEDIR%"
 
+pause
